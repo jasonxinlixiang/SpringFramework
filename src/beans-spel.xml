@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.atguigu.spring.beans.spel.Address">
+        <!-- 使用Spel为属性赋一个字面值 -->
+        <property name="city" value="#{'BeiJing'}"></property>
+        <property name="street" value="WuDaoKou"></property>
+    </bean>
+    
+    <bean id="car" class="com.atguigu.spring.beans.spel.Car">
+        <property name="brand" value="Audi"></property>
+        <property name="price" value="500000"></property>
+        <!-- 使用Spel 引用类的静态属性 -->
+        <property name="tyreperimeter" value="#{T(java.lang.Math).PI * 80}"></property>
+    </bean>
+
+    <bean id="person" class="com.atguigu.spring.beans.spel.Person">
+        <!-- 使用Spel 引用其他的bean的属性-->
+        <property name="city" value="#{address.city}"></property>
+        <!-- 使用Spel 引用其他的bean -->
+        <property name="car" value="#{car}"></property>
+        <!-- 在Spel 中使用运算符 -->
+        <property name="info" value="#{car.price > 300000 ? '金领' : '白领'}"></property>
+        <property name="name" value="Jason"></property>
+    </bean>
+
+
+</beans>
